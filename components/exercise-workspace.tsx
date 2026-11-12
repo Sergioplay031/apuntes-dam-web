@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Check, ChevronDown, ChevronLeft, ChevronRight, CircleHelp, Clock3, Code2, Copy, Eye, EyeOff, Lightbulb, Maximize2, Minimize2, PanelTop, RotateCcw, Save, Sparkles, Terminal } from "lucide-react"
 import { Exercise, exercises } from "@/lib/exercise-content"
+import { TextSizeControl, useTextSize } from "@/components/text-size-control"
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false,
@@ -12,6 +13,7 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
 })
 
 export function ExerciseWorkspace({ exercise }: { exercise: Exercise }) {
+  const { scale } = useTextSize()
   const [code, setCode] = useState(exercise.starter)
   const [ready, setReady] = useState(false)
   const [solutionVisible, setSolutionVisible] = useState(false)
@@ -83,7 +85,7 @@ export function ExerciseWorkspace({ exercise }: { exercise: Exercise }) {
     <header className="exercise-topbar">
       <Link className="exercise-back" href="/?section=Ejercicios"><ArrowLeft size={17}/><span>Volver a ejercicios</span></Link>
       <div className="exercise-breadcrumb"><span>DAM Academy</span><ChevronRight size={14}/><span>Ejercicios</span><ChevronRight size={14}/><strong>{exercise.title}</strong></div>
-      <div className="exercise-top-actions"><span className="exercise-id">{exercise.id} / {String(exercises.length).padStart(2, "0")}</span><button className={`exercise-done-top ${completed ? "is-complete" : ""}`} onClick={toggleCompleted}><Check size={15}/>{completed ? "Completado" : "Marcar completado"}</button></div>
+      <div className="exercise-top-actions"><TextSizeControl/><span className="exercise-id">{exercise.id} / {String(exercises.length).padStart(2, "0")}</span><button className={`exercise-done-top ${completed ? "is-complete" : ""}`} onClick={toggleCompleted}><Check size={15}/>{completed ? "Completado" : "Marcar completado"}</button></div>
     </header>
 
     <div className="exercise-workspace-body">
@@ -96,7 +98,7 @@ export function ExerciseWorkspace({ exercise }: { exercise: Exercise }) {
         <section className="problem-and-editor">
           <article className="problem-panel"><div className="panel-heading"><span className="panel-heading-icon"><PanelTop size={16}/></span><div><h2>Enunciado</h2><small>Lee el reto antes de empezar a programar</small></div></div><p className="problem-statement">{exercise.prompt}</p><div className="problem-specs"><div><span>ENTRADA DE EJEMPLO</span><pre>{exercise.input}</pre></div><div><span>RESULTADO ESPERADO</span><pre>{exercise.expected}</pre></div></div></article>
 
-          <section className="monaco-panel"><div className="monaco-toolbar"><div className="monaco-file"><span className="java-file">J</span><span>Solucion.java</span><span className="monaco-language">Java</span></div><div className="monaco-actions"><span className="autosave-state"><Save size={13}/>{savedAt || "Borrador local"}</span><button className="editor-icon-action" onClick={() => updateCode(exercise.starter)} title="Restablecer plantilla" aria-label="Restablecer plantilla"><RotateCcw size={15}/></button><button className="editor-icon-action" onClick={() => setFocus(!focus)} title={focus ? "Salir del modo enfoque" : "Abrir editor en modo enfoque"} aria-label={focus ? "Salir del modo enfoque" : "Abrir editor en modo enfoque"}>{focus ? <Minimize2 size={15}/> : <Maximize2 size={15}/>}</button><button className="editor-copy-action" onClick={() => copyCode(code)}><Copy size={14}/>{copied ? "Copiado" : "Copiar"}</button></div></div><div className="monaco-editor-frame"><MonacoEditor height={focus ? "calc(100vh - 112px)" : "560px"} language="java" theme="vs-dark" value={code} onChange={updateCode} options={{ automaticLayout: true, minimap: { enabled: false }, fontSize: 15, lineHeight: 24, fontFamily: "'Geist Mono', 'SFMono-Regular', Consolas, monospace", padding: { top: 18, bottom: 18 }, scrollBeyondLastLine: false, smoothScrolling: true, tabSize: 4, insertSpaces: true, wordWrap: "on", renderLineHighlight: "all", accessibilitySupport: "auto", ariaLabel: `Editor Java para el ejercicio ${exercise.title}` }} />{!ready && <div className="monaco-restoring">Recuperando tu borrador…</div>}</div><div className="monaco-footer"><span><i className="status-dot"/>Java · edición local</span><span>El editor no ejecuta Java. Copia tu solución a NetBeans para compilarla.</span></div></section>
+          <section className="monaco-panel"><div className="monaco-toolbar"><div className="monaco-file"><span className="java-file">J</span><span>Solucion.java</span><span className="monaco-language">Java</span></div><div className="monaco-actions"><span className="autosave-state"><Save size={13}/>{savedAt || "Borrador local"}</span><button className="editor-icon-action" onClick={() => updateCode(exercise.starter)} title="Restablecer plantilla" aria-label="Restablecer plantilla"><RotateCcw size={15}/></button><button className="editor-icon-action" onClick={() => setFocus(!focus)} title={focus ? "Salir del modo enfoque" : "Abrir editor en modo enfoque"} aria-label={focus ? "Salir del modo enfoque" : "Abrir editor en modo enfoque"}>{focus ? <Minimize2 size={15}/> : <Maximize2 size={15}/>}</button><button className="editor-copy-action" onClick={() => copyCode(code)}><Copy size={14}/>{copied ? "Copiado" : "Copiar"}</button></div></div><div className="monaco-editor-frame"><MonacoEditor height={focus ? "calc(100vh - 112px)" : "560px"} language="java" theme="vs-dark" value={code} onChange={updateCode} options={{ automaticLayout: true, minimap: { enabled: false }, fontSize: Math.round(18 * scale), lineHeight: Math.round(28 * scale), fontFamily: "'Geist Mono', 'SFMono-Regular', Consolas, monospace", padding: { top: 18, bottom: 18 }, scrollBeyondLastLine: false, smoothScrolling: true, tabSize: 4, insertSpaces: true, wordWrap: "on", renderLineHighlight: "all", accessibilitySupport: "auto", ariaLabel: `Editor Java para el ejercicio ${exercise.title}` }} />{!ready && <div className="monaco-restoring">Recuperando tu borrador…</div>}</div><div className="monaco-footer"><span><i className="status-dot"/>Java · edición local</span><span>El editor no ejecuta Java. Copia tu solución a NetBeans para compilarla.</span></div></section>
         </section>
 
         <aside className="exercise-study-rail">
