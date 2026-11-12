@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { TextSizeProvider } from '@/components/text-size-control'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -41,8 +42,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="antialiased">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <TextSizeProvider>
+          {children}
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </TextSizeProvider>
       </body>
     </html>
   )
