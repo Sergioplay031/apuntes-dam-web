@@ -109,7 +109,7 @@ export function ExerciseWorkspace({ exercise }: { exercise: Exercise }) {
         </aside>
       </div>
 
-      <footer className="exercise-pager"><Link href={`/?section=Ejercicios`}><ArrowLeft size={15}/> Lista de ejercicios</Link><Link href={`/ejercicios/${previous.id}`} className="pager-prev"><ChevronLeft size={15}/><span><small>EJERCICIO ANTERIOR</small>{previous.title}</span></Link><Link href={`/ejercicios/${next.id}`} className="pager-next"><span><small>SIGUIENTE EJERCICIO</small>{next.title}</span><ChevronRight size={15}/></Link></footer>
+      <footer className="exercise-pager"><Link href={`/?section=Ejercicios`}><ArrowLeft size={15}/> Lista de ejercicios</Link><Link href={`/ejercicios/${previous.id}`} className="pager-prev"><ChevronLeft size={15}/><span><small>EJERCICIO ANTERIOR</small>{previous.title}</span></Link><Link href={`/ejercicios/${next.id}`} className="pager-next"><span><small>SIGUIENTE EJERCICIO</small>{next.title}</span><ChevronRight size={15}/></Link></footer><footer className="site-footer">Diseñado por Sergio Bravo Huete</footer>
     </div>
   </main>
 }
