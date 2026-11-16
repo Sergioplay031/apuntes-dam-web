@@ -3,8 +3,15 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
     function owner(uid) { return signedIn() && request.auth.uid == uid; }
-    function admin() { return signedIn() && (request.auth.token.admin == true || request.auth.token.superadmin == true); }
-    function superadmin() { return signedIn() && request.auth.token.superadmin == true; }
+    // Los roles se administran exclusivamente desde el campo users/{uid}.role.
+    // Un estudiante nunca puede cambiar su propio rol.
+    function role() {
+      return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : 'student';
+    }
+    function admin() { return signedIn() && role() in ['admin', 'superadmin']; }
+    function superadmin() { return signedIn() && role() == 'superadmin'; }
     function participant(chatId) { return signedIn() && request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants; }
     function ticketAccess(ticketId) { return signedIn() && (admin() || get(/databases/$(database)/documents/tickets/$(ticketId)).data.ownerId == request.auth.uid); }
     match /users/{uid} {
