@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { createPortal } from "react-dom"
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile, type User } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import { auth, db, firebaseReady } from "@/lib/firebase"
@@ -40,7 +41,7 @@ export function AuthPanel({ user }: { user: User | null }) {
   if (!firebaseReady) return <span style={{fontSize:12}}>Configura Firebase en Vercel</span>
   return <div style={{display:"flex",alignItems:"center",gap:8}}>
     {user ? <><span style={{fontSize:12}}>{user.displayName || user.email}</span><button className="subtle-button" onClick={() => auth && signOut(auth)}>Salir</button></> : <button className="primary-button" onClick={() => {setMode("login");setMessage("");setOpen(true)}}>Entrar / Registrarse</button>}
-    {open && <div role="dialog" aria-modal="true" aria-label="Acceso a DamAcademy" style={{position:"fixed",inset:0,zIndex:9999,background:"rgba(4,6,18,.76)",backdropFilter:"blur(9px)",display:"grid",placeItems:"center",padding:16}}>
+    {open && createPortal(<div role="dialog" aria-modal="true" aria-label="Acceso a DamAcademy" style={{position:"fixed",inset:0,zIndex:9999,background:"rgba(4,6,18,.76)",backdropFilter:"blur(9px)",display:"grid",placeItems:"center",padding:16}}>
       <div style={{background:"#171b2b",color:"#fff",border:"1px solid #50566b",borderRadius:18,padding:26,width:"min(420px,100%)",boxShadow:"0 24px 90px #000b",maxHeight:"90vh",overflowY:"auto"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}><h2 style={{fontSize:22}}>{mode === "login" ? "Iniciar sesión" : mode === "register" ? "Crear cuenta" : "Recuperar contraseña"}</h2><button onClick={() => setOpen(false)} aria-label="Cerrar" style={{fontSize:24}}>×</button></div>
         <form onSubmit={submit} style={{display:"grid",gap:12,marginTop:18}}>
@@ -52,7 +53,7 @@ export function AuthPanel({ user }: { user: User | null }) {
         </form>
         <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:18}}>{mode !== "login" && <button onClick={() => {setMode("login");setMessage("")}}>Ya tengo cuenta</button>}{mode !== "register" && <button onClick={() => {setMode("register");setMessage("")}}>Crear cuenta</button>}{mode !== "reset" && <button onClick={() => {setMode("reset");setMessage("")}}>Olvidé mi contraseña</button>}</div>
       </div>
-    </div>}
+    </div>, document.body)}
   </div>
 }
 const field: React.CSSProperties = {display:"block",width:"100%",marginTop:5,padding:11,borderRadius:8,background:"#242a3e",color:"white",border:"1px solid #646a7d"}
