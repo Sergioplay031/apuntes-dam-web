@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function owner(uid) { return signedIn() && request.auth.uid == uid; }
+    function admin() { return signedIn() && (request.auth.token.admin == true || request.auth.token.superadmin == true); }
+    function superadmin() { return signedIn() && request.auth.token.superadmin == true; }
+    match /users/{uid} {
+      allow get: if owner(uid) || admin();
+      allow list: if admin();
+      allow create: if owner(uid)
+        && request.resource.data.keys().hasAll(['nombre','email','role'])
+        && request.resource.data.keys().hasOnly(['nombre','email','role'])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 80
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.role == 'student';
+      allow update: if superadmin() || (owner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['nombre'])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 80);
+      allow delete: if superadmin();
+    }
+    match /progress/{uid} {
+      allow get: if owner(uid) || admin();
+      allow list: if admin();
+      allow create, update: if owner(uid)
+        && request.resource.data.keys().hasAll(['completedLessons','completedExercises','lastLesson'])
+        && request.resource.data.keys().hasOnly(['completedLessons','completedExercises','lastLesson'])
+        && request.resource.data.completedLessons is list
+        && request.resource.data.completedLessons.size() <= 200
+        && request.resource.data.completedExercises is list
+        && request.resource.data.completedExercises.size() <= 200
+        && request.resource.data.lastLesson is string
+        && request.resource.data.lastLesson.size() <= 150;
+      allow delete: if owner(uid) || superadmin();
+    }
+  }
+}
