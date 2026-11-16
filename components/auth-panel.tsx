@@ -24,9 +24,12 @@ export function AuthPanel({ user }: { user: User | null }) {
         const result = await createUserWithEmailAndPassword(auth, email, password)
         await updateProfile(result.user, { displayName: name.trim() })
         await setDoc(doc(db, "users", result.user.uid), { nombre: name.trim(), email: result.user.email, role: "student" })
+        await setDoc(doc(db, "directory", result.user.uid), { nombre: name.trim() })
         setOpen(false)
       } else {
-        await signInWithEmailAndPassword(auth, email, password)
+        const result = await signInWithEmailAndPassword(auth, email, password)
+        if (db && result.user.displayName) await setDoc(doc(db, "directory", result.user.uid), { nombre: result.user.displayName }, { merge: true })
+        if (db && result.user.email) await setDoc(doc(db, "users", result.user.uid), { email: result.user.email }, { merge: true })
         setOpen(false)
       }
     } catch (error) {
@@ -37,8 +40,8 @@ export function AuthPanel({ user }: { user: User | null }) {
   if (!firebaseReady) return <span style={{fontSize:12}}>Configura Firebase en Vercel</span>
   return <div style={{display:"flex",alignItems:"center",gap:8}}>
     {user ? <><span style={{fontSize:12}}>{user.displayName || user.email}</span><button className="subtle-button" onClick={() => auth && signOut(auth)}>Salir</button></> : <button className="primary-button" onClick={() => {setMode("login");setMessage("");setOpen(true)}}>Entrar / Registrarse</button>}
-    {open && <div role="dialog" aria-modal="true" aria-label="Acceso a DamAcademy" style={{position:"fixed",inset:0,zIndex:9999,background:"#000b",display:"grid",placeItems:"center",padding:16}}>
-      <div style={{background:"#171b2b",color:"#fff",border:"1px solid #50566b",borderRadius:18,padding:26,width:"min(420px,100%)",boxShadow:"0 12px 60px #0009"}}>
+    {open && <div role="dialog" aria-modal="true" aria-label="Acceso a DamAcademy" style={{position:"fixed",inset:0,zIndex:9999,background:"rgba(4,6,18,.76)",backdropFilter:"blur(9px)",display:"grid",placeItems:"center",padding:16}}>
+      <div style={{background:"#171b2b",color:"#fff",border:"1px solid #50566b",borderRadius:18,padding:26,width:"min(420px,100%)",boxShadow:"0 24px 90px #000b",maxHeight:"90vh",overflowY:"auto"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}><h2 style={{fontSize:22}}>{mode === "login" ? "Iniciar sesión" : mode === "register" ? "Crear cuenta" : "Recuperar contraseña"}</h2><button onClick={() => setOpen(false)} aria-label="Cerrar" style={{fontSize:24}}>×</button></div>
         <form onSubmit={submit} style={{display:"grid",gap:12,marginTop:18}}>
           {mode === "register" && <label>Nombre<input required minLength={2} maxLength={80} value={name} onChange={e => setName(e.target.value)} style={field}/></label>}
