@@ -208,3 +208,32 @@ button { cursor: pointer; }
 .account-count{margin-left:auto;background:#7559e8;color:white;border-radius:999px;min-width:22px;padding:2px 6px;text-align:center;font-size:11px;font-weight:700}
 .account-body{flex:1;min-width:0;overflow-y:auto}
 @media(max-width:650px){.account-layout{flex-direction:column}.account-tabs{flex:0 0 auto;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid #343751;padding:9px;gap:4px}.account-tabs button{width:auto;white-space:nowrap;min-height:40px;flex-shrink:0}.account-body{min-height:0}}
+
+/* DamAcademy: chat privado y estados del centro de soporte */
+.dam-chat-layout{display:grid;grid-template-columns:minmax(180px,34%) minmax(0,1fr);border:1px solid #3e4262;border-radius:15px;overflow:hidden;min-height:430px;background:#171b2d}
+.dam-chat-sidebar{background:#1d2238;border-right:1px solid #3e4262;padding:12px;max-height:530px;overflow:auto}
+.dam-chat-search{display:flex;align-items:center;gap:8px;padding:9px;background:#282d46;border:1px solid #414766;border-radius:10px}
+.dam-chat-search input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:white;font:inherit}
+.dam-chat-section-title{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#a5a9c5;font-weight:700;margin:18px 6px 8px}
+.dam-chat-contact{display:flex;align-items:center;text-align:left;gap:10px;width:100%;padding:10px;border:0;border-radius:10px;background:transparent;color:#eef0ff;cursor:pointer}
+.dam-chat-contact:hover,.dam-chat-contact.selected{background:#34365a}
+.dam-chat-contact span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dam-chat-contact small{display:block;color:#aeb2ca;font-size:11px;overflow:hidden;text-overflow:ellipsis}
+.dam-chat-avatar{display:grid;place-items:center;flex-shrink:0;width:34px;height:34px;border-radius:50%;background:#6652c7;color:white;font-weight:700}
+.dam-chat-main{display:flex;flex-direction:column;min-width:0;min-height:430px}
+.dam-chat-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #3e4262}
+.dam-chat-messages{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:16px;flex:1;max-height:380px;overflow:auto}
+.dam-chat-bubble{background:#30364f;border-radius:14px 14px 14px 4px;padding:10px 13px;max-width:85%;overflow-wrap:anywhere}
+.dam-chat-bubble.mine{align-self:flex-end;background:#5d4ac0;border-radius:14px 14px 4px 14px}
+.dam-chat-bubble p{margin:0;color:#fff}.dam-chat-bubble small{display:block;text-align:right;color:#d4d2f0;font-size:10px;margin-top:5px}
+.dam-chat-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #3e4262}
+.dam-chat-compose input{flex:1;min-width:0;border:1px solid #4a5073;border-radius:10px;background:#282d46;color:#fff;padding:11px}
+.dam-chat-compose button{border:0;border-radius:10px;background:#7765f4;color:white;padding:10px;cursor:pointer}.dam-chat-compose button:disabled{opacity:.45}
+.dam-chat-empty{margin:auto;text-align:center;color:#afb2d0;padding:22px;display:flex;flex-direction:column;align-items:center;gap:12px}.dam-chat-empty strong{color:#f1f0ff}
+.dam-chat-muted{color:#b7bad3;font-size:13px;padding:12px}
+.account-ticket{display:flex!important;align-items:center;justify-content:space-between;gap:14px;text-align:left!important}
+.dam-ticket-info{display:flex;flex-direction:column;gap:5px;min-width:0}.dam-ticket-info small{color:#aeb4d0}
+.dam-ticket-status{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;padding:7px 10px;border-radius:99px;font-size:12px;font-weight:700;border:1px solid}
+.dam-ticket-status.pending{background:#6e4c162b;border-color:#d99b35;color:#ffc56b}.dam-ticket-status.processing{background:#3445a43d;border-color:#708aff;color:#a9baff}.dam-ticket-status.resolved{background:#146c4b35;border-color:#36b58a;color:#8be2bd}
+.dam-ticket-dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+@media(max-width:650px){.dam-chat-layout{grid-template-columns:minmax(110px,38%) minmax(0,1fr)}.dam-chat-sidebar{padding:6px}.dam-chat-contact{gap:5px;padding:7px 4px}.dam-chat-avatar{width:26px;height:26px}.dam-chat-messages{padding:9px}.dam-ticket-status{font-size:10px;padding:5px 7px}}
