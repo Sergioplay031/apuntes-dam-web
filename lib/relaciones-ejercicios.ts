@@ -1,0 +1,15 @@
+export const relacionesEjercicios = [
+  { tema: "tema-1", titulo: "1. Tipos de datos", url: "/relaciones/tema-1-1-tipos-de-datos-pdf" },
+  { tema: "tema-1", titulo: "2. Operadores y expresiones", url: "/relaciones/tema-1-2-operadores-y-expresiones-pdf" },
+  { tema: "tema-1", titulo: "3. Conversiones de tipo", url: "/relaciones/tema-1-3-conversiones-de-tipo-pdf" },
+  { tema: "tema-1", titulo: "4. La clase Math", url: "/relaciones/tema-1-4-la-clase-math-pdf" },
+  { tema: "tema-1", titulo: "5. Programas completos y depuración", url: "/relaciones/tema-1-5-programas-completos-y-depuracion-pdf" },
+  { tema: "tema-1", titulo: "6. Configuración del entorno y uso del IDE", url: "/relaciones/tema-1-6-configuracion-del-entorno-y-uso-del-ide-pdf" },
+  { tema: "tema-1", titulo: "ud01 - Funciones de Math - Relación de ejercicios", url: "/relaciones/tema-1-ud01-funciones-de-math-relacion-de-ejercicios-pdf" },
+  { tema: "tema-2", titulo: "1. Estructuras de selección", url: "/relaciones/tema-2-1-estructuras-de-seleccion-pdf" },
+  { tema: "tema-2", titulo: "3. Programas completos", url: "/relaciones/tema-2-3-programas-completos-pdf" },
+  { tema: "tema-2", titulo: "4. Sentencias de salto", url: "/relaciones/tema-2-4-sentencias-de-salto-pdf" },
+  { tema: "tema-2", titulo: "5. Excepciones", url: "/relaciones/tema-2-5-excepciones-pdf" },
+  { tema: "tema-2", titulo: "6. Documentación, pruebas y depuración", url: "/relaciones/tema-2-6-documentacion-pruebas-y-depuracion-pdf" },
+  { tema: "tema-2", titulo: "ud02 - Ejercicios - Estructuras de repetición - RA3, CE a), b)", url: "/relaciones/tema-2-ud02-ejercicios-estructuras-de-repeticion-ra3-ce-a-b-pdf" },
+] as const
