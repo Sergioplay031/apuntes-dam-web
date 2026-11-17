@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Check, ChevronDown, ChevronLeft, ChevronRight, CircleHelp, Clock3, Code2, Play, Copy, Eye, EyeOff, Lightbulb, Maximize2, Minimize2, PanelTop, RotateCcw, Save, Sparkles, Terminal } from "lucide-react"
-import { ejecutarJavaLocal } from "@/lib/java-browser-runner"
+import { JavaTerminal } from "@/components/java-terminal"
 import { Exercise, exercises } from "@/lib/exercise-content"
 import { TextSizeControl, useTextSize } from "@/components/text-size-control"
 
@@ -22,9 +22,6 @@ export function ExerciseWorkspace({ exercise }: { exercise: Exercise }) {
   const [completed, setCompleted] = useState(false)
   const [copied, setCopied] = useState(false)
   const [savedAt, setSavedAt] = useState("")
-  const [runInput,setRunInput] = useState("")
-  const [runOutput,setRunOutput] = useState("")
-  const [running,setRunning] = useState(false)
 
   const currentIndex = exercises.findIndex((item) => item.id === exercise.id)
   const previous = exercises[(currentIndex - 1 + exercises.length) % exercises.length]
@@ -60,7 +57,6 @@ export function ExerciseWorkspace({ exercise }: { exercise: Exercise }) {
     }
   }
 
-  async function runCode(){setRunning(true);setRunOutput("Ejecutando en tu navegador…");try{setRunOutput(await ejecutarJavaLocal(code,runInput))}finally{setRunning(false)}}
 
   function toggleCompleted() {
     setCompleted((wasCompleted) => {
@@ -105,7 +101,7 @@ export function ExerciseWorkspace({ exercise }: { exercise: Exercise }) {
           <article className="problem-panel"><div className="panel-heading"><span className="panel-heading-icon"><PanelTop size={16}/></span><div><h2>Enunciado</h2><small>Lee el reto antes de empezar a programar</small></div></div><p className="problem-statement">{exercise.prompt}</p><div className="problem-specs"><div><span>ENTRADA DE EJEMPLO</span><pre>{exercise.input}</pre></div><div><span>RESULTADO ESPERADO</span><pre>{exercise.expected}</pre></div></div></article>
 
           <section className="monaco-panel"><div className="monaco-toolbar"><div className="monaco-file"><span className="java-file">J</span><span>Solucion.java</span><span className="monaco-language">Java</span></div><div className="monaco-actions"><span className="autosave-state"><Save size={13}/>{savedAt || "Borrador local"}</span><button className="editor-icon-action" onClick={() => updateCode(exercise.starter)} title="Restablecer plantilla" aria-label="Restablecer plantilla"><RotateCcw size={15}/></button><button className="editor-icon-action" onClick={() => setFocus(!focus)} title={focus ? "Salir del modo enfoque" : "Abrir editor en modo enfoque"} aria-label={focus ? "Salir del modo enfoque" : "Abrir editor en modo enfoque"}>{focus ? <Minimize2 size={15}/> : <Maximize2 size={15}/>}</button><button className="editor-copy-action" onClick={() => copyCode(code)}><Copy size={14}/>{copied ? "Copiado" : "Copiar"}</button></div></div><div className="monaco-editor-frame"><MonacoEditor height={focus ? "calc(100vh - 112px)" : "560px"} language="java" theme="vs-dark" value={code} onChange={updateCode} options={{ automaticLayout: true, minimap: { enabled: false }, fontSize: Math.round(18 * scale), lineHeight: Math.round(28 * scale), fontFamily: "'Geist Mono', 'SFMono-Regular', Consolas, monospace", padding: { top: 18, bottom: 18 }, scrollBeyondLastLine: false, smoothScrolling: true, tabSize: 4, insertSpaces: true, wordWrap: "on", renderLineHighlight: "all", accessibilitySupport: "auto", ariaLabel: `Editor Java para el ejercicio ${exercise.title}` }} />{!ready && <div className="monaco-restoring">Recuperando tu borrador…</div>}</div><div className="monaco-footer"><span><i className="status-dot"/>Java · edición local</span><span>Intérprete educativo local · Java básico · No sustituye a un JDK</span></div></section>
-          <section className="java-local-console"><div className="java-local-console-title"><Terminal size={18}/> Ejecutar Java en el navegador</div><p>Datos para Scanner (uno por línea cuando corresponda):</p><textarea value={runInput} onChange={e=>setRunInput(e.target.value)} placeholder="Entrada de ejemplo…" rows={3}/><button type="button" disabled={running} onClick={runCode}><Play size={16}/>{running?"Ejecutando…":"Ejecutar código"}</button><h3>Consola</h3><pre aria-live="polite">{runOutput||"Aquí aparecerá el resultado de tu programa."}</pre><small>Intérprete didáctico: admite un subconjunto de Java, no todas las características de NetBeans.</small></section>
+          <JavaTerminal code={code}/>
         </section>
 
         <aside className="exercise-study-rail">
