@@ -11,6 +11,7 @@ export function AuthPanel({ user }: { user: User | null }) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
   const [message, setMessage] = useState("")
   const [busy, setBusy] = useState(false)
   async function sendVerification(userToVerify: User) {
@@ -63,7 +64,7 @@ export function AuthPanel({ user }: { user: User | null }) {
         <form onSubmit={submit} style={{display:"grid",gap:12,marginTop:18}}>
           {mode === "register" && <label>Nombre<input required minLength={2} maxLength={80} value={name} onChange={e => setName(e.target.value)} style={field}/></label>}
           <label>Correo electrónico<input type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} style={field}/></label>
-          {mode !== "reset" && <label>Contraseña<input type="password" required minLength={6} autoComplete={mode === "register" ? "new-password" : "current-password"} value={password} onChange={e => setPassword(e.target.value)} style={field}/></label>}
+          {mode !== "reset" && <label>Contraseña<div style={{position:"relative",marginTop:5}}><input type={showPassword ? "text" : "password"} required minLength={6} autoComplete={mode === "register" ? "new-password" : "current-password"} value={password} onChange={e => setPassword(e.target.value)} style={{...field,marginTop:0,paddingRight:92}}/><button type="button" aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"} aria-pressed={showPassword} onClick={() => setShowPassword(v => !v)} style={{position:"absolute",right:9,top:"50%",transform:"translateY(-50%)",background:"transparent",border:0,color:"#c4b5fd",fontSize:13,fontWeight:600,cursor:"pointer",padding:"6px 4px"}}>{showPassword ? "Ocultar" : "Mostrar"}</button></div></label>}
           {message && <p role="status" style={{fontSize:13}}>{message}</p>}
           <button disabled={busy} type="submit" className="primary-button">{busy ? "Procesando..." : mode === "login" ? "Entrar" : mode === "register" ? "Registrarme" : "Enviar correo"}</button>
         </form>
