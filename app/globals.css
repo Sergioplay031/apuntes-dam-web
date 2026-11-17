@@ -156,3 +156,21 @@ button { cursor: pointer; }
 
 /* Relaciones interactivas */
 .rel-page{min-height:100vh;background:#090d18;color:#f0f4ff;padding:20px clamp(14px,4vw,52px) 70px;overflow-x:hidden}.rel-top{display:flex;align-items:center;justify-content:space-between;gap:15px;color:#8f9db5;font-size:13px}.rel-top a{display:flex;align-items:center;gap:8px;color:#aaaaff;text-decoration:none}.rel-heading{display:flex;justify-content:space-between;gap:18px;align-items:center;margin:35px 0 24px}.rel-heading h1{font-size:clamp(25px,3vw,38px);margin:8px 0}.rel-heading p,.rel-muted{color:#9ba9be;font-size:13px}.rel-kicker{color:#9c9cff;font-size:12px}.rel-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,310px);gap:18px;align-items:start}.rel-main,.rel-side{min-width:0;display:grid;gap:16px}.rel-card{min-width:0;border:1px solid #29344a;background:#141c2c;border-radius:13px;padding:20px}.rel-card h2{font-size:18px;margin:0 0 15px}.rel-card h3{font-size:14px}.rel-statement{font:14px/1.75 Arial,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;color:#d5deee;max-height:none}.rel-code{padding:14px}.rel-code-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.rel-code-head>div{display:flex;gap:6px}.rel-code-head button,.rel-guide,.rel-done{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid #4d5485;border-radius:8px;padding:10px 13px;background:#252b48;color:#e0e2ff}.rel-saved{display:flex;align-items:center;gap:7px;color:#93a2b7;font-size:12px;margin-top:12px}.rel-input{width:100%;resize:vertical;min-height:80px;border:1px solid #34405a;background:#0c1322;color:white;padding:12px;border-radius:9px}.rel-run{display:flex;align-items:center;gap:8px;border:0;border-radius:8px;background:#7778ff;color:white;padding:11px 18px;margin:12px 0}.rel-run:disabled{opacity:.6}.rel-console{white-space:pre-wrap;overflow-wrap:anywhere;background:#080e19;border:1px solid #28344a;border-radius:9px;padding:15px;min-height:90px;color:#7ee6b8}.rel-side p{color:#b2bdd0;font-size:13px;line-height:1.7}.rel-guide{width:100%}.rel-guidance{margin-top:14px;padding:12px;background:#10182a;border-radius:8px}.rel-guidance small{color:#8e9ab1}@media(max-width:900px){.rel-layout{grid-template-columns:minmax(0,1fr)}.rel-heading{align-items:flex-start;flex-direction:column}}
+
+/* Secciones y temas plegables */
+.exercise-collection{min-width:0;margin:22px 0;border:1px solid #2b3450;border-radius:15px;padding:0 16px 16px;background:#101625}
+.exercise-collection:not([open]){padding-bottom:0}
+.exercise-collection-toggle{display:flex;align-items:center;gap:12px;padding:17px 5px;cursor:pointer;list-style:none;color:#f0efff}
+.exercise-collection-toggle::-webkit-details-marker,.exercise-topic-fold>summary::-webkit-details-marker{display:none}
+.exercise-collection-toggle>strong{font-size:19px}.exercise-collection-toggle>span{margin-left:auto;color:#a9b4c9;font-size:13px}
+.exercise-collection-toggle>svg:last-child,.exercise-topic-title>svg:last-child{transition:transform .2s;flex-shrink:0}
+.exercise-collection:not([open])>.exercise-collection-toggle>svg:last-child,.exercise-topic-fold:not([open])>.exercise-topic-title>svg:last-child{transform:rotate(-90deg)}
+.exercise-collection>.exercise-section-intro{margin-top:5px}
+.exercise-topic-fold>summary{cursor:pointer;list-style:none;align-items:center}
+.exercise-topic-fold:not([open]){margin-bottom:8px}
+.exercise-topic-fold .exercise-grid{padding-bottom:8px}
+.exercise-card .exercise-number{font-size:12px;max-width:75%;white-space:normal;overflow-wrap:anywhere;color:#aaa9ff}
+.exercise-card h2{overflow-wrap:anywhere}
+.rel-solution{background:#0a1222;border:1px solid #38405d;border-radius:9px;padding:13px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b7eacb;font:13px/1.6 monospace}
+.rel-card h2 svg{display:inline-block;vertical-align:middle;margin-right:6px;color:#aaa8ff}
+@media(max-width:600px){.exercise-collection{padding:0 10px 10px}.exercise-collection-toggle>strong{font-size:16px}.exercise-collection-toggle>span{display:none}}
