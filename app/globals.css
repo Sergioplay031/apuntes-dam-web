@@ -198,3 +198,13 @@ button { cursor: pointer; }
 .account-body label:has(.account-eye) input{padding-right:48px!important}
 .account-eye{position:absolute;right:9px;bottom:9px;background:transparent;border:0;color:#c4b5fd;cursor:pointer;padding:6px;display:flex;align-items:center}
 .account-eye:focus-visible{outline:2px solid #a99bff;border-radius:6px}
+
+/* Mi espacio: navegación lateral en escritorio y accesible en móvil */
+.account-modal{width:min(1040px,100%)}
+.account-layout{display:flex;min-height:0;flex:1;overflow:hidden}
+.account-tabs{flex:0 0 190px;display:flex;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:7px;padding:18px 12px;border-bottom:0;border-right:1px solid #343751;background:#151829;overflow-y:auto}
+.account-tabs button{width:100%;justify-content:flex-start;text-align:left;min-height:42px}
+.account-tabs button.active{background:#37305d;color:#fff}
+.account-count{margin-left:auto;background:#7559e8;color:white;border-radius:999px;min-width:22px;padding:2px 6px;text-align:center;font-size:11px;font-weight:700}
+.account-body{flex:1;min-width:0;overflow-y:auto}
+@media(max-width:650px){.account-layout{flex-direction:column}.account-tabs{flex:0 0 auto;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid #343751;padding:9px;gap:4px}.account-tabs button{width:auto;white-space:nowrap;min-height:40px;flex-shrink:0}.account-body{min-height:0}}
