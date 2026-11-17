@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
 import { createPortal } from "react-dom"
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword, signOut, updateProfile, type User } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
@@ -64,7 +65,7 @@ export function AuthPanel({ user }: { user: User | null }) {
         <form onSubmit={submit} style={{display:"grid",gap:12,marginTop:18}}>
           {mode === "register" && <label>Nombre<input required minLength={2} maxLength={80} value={name} onChange={e => setName(e.target.value)} style={field}/></label>}
           <label>Correo electrónico<input type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} style={field}/></label>
-          {mode !== "reset" && <label>Contraseña<div style={{position:"relative",marginTop:5}}><input type={showPassword ? "text" : "password"} required minLength={6} autoComplete={mode === "register" ? "new-password" : "current-password"} value={password} onChange={e => setPassword(e.target.value)} style={{...field,marginTop:0,paddingRight:92}}/><button type="button" aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"} aria-pressed={showPassword} onClick={() => setShowPassword(v => !v)} style={{position:"absolute",right:9,top:"50%",transform:"translateY(-50%)",background:"transparent",border:0,color:"#c4b5fd",fontSize:13,fontWeight:600,cursor:"pointer",padding:"6px 4px"}}>{showPassword ? "Ocultar" : "Mostrar"}</button></div></label>}
+          {mode !== "reset" && <label>Contraseña<div style={{position:"relative",marginTop:5}}><input type={showPassword ? "text" : "password"} required minLength={6} autoComplete={mode === "register" ? "new-password" : "current-password"} value={password} onChange={e => setPassword(e.target.value)} style={{...field,marginTop:0,paddingRight:48}}/><button type="button" aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"} aria-pressed={showPassword} onClick={() => setShowPassword(v => !v)} style={{position:"absolute",right:9,top:"50%",transform:"translateY(-50%)",background:"transparent",border:0,color:"#c4b5fd",cursor:"pointer",padding:"6px 4px",display:"flex",alignItems:"center"}}>{showPassword ? <EyeOff size={19}/> : <Eye size={19}/>}</button></div></label>}
           {message && <p role="status" style={{fontSize:13}}>{message}</p>}
           <button disabled={busy} type="submit" className="primary-button">{busy ? "Procesando..." : mode === "login" ? "Entrar" : mode === "register" ? "Registrarme" : "Enviar correo"}</button>
         </form>

@@ -192,3 +192,9 @@ button { cursor: pointer; }
 .dam-terminal-working{display:flex;align-items:center;gap:8px;color:#b5adff}.dam-terminal-working svg{animation:dam-terminal-spin 1s linear infinite}@keyframes dam-terminal-spin{to{transform:rotate(360deg)}}
 .dam-terminal-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 17px;background:#131a2d;border-top:1px solid #2d3651;font-size:11px;color:#8897b5}.dam-terminal-status{display:inline-flex;align-items:center;gap:6px;color:#98a5c0}.dam-terminal-status.status-waiting{color:#ffcf82}.dam-terminal-status.status-finished{color:#83e5ae}.dam-terminal-status.status-error{color:#ff9c9c}
 @media(max-width:600px){.dam-terminal-toolbar{padding:14px}.dam-terminal-buttons{width:100%}.dam-terminal-buttons button{flex:1}.dam-terminal-screen{padding:15px;font-size:13px}}
+
+/* Botones accesibles de visibilidad de contraseñas en el perfil */
+.account-body label:has(.account-eye){position:relative;display:block}
+.account-body label:has(.account-eye) input{padding-right:48px!important}
+.account-eye{position:absolute;right:9px;bottom:9px;background:transparent;border:0;color:#c4b5fd;cursor:pointer;padding:6px;display:flex;align-items:center}
+.account-eye:focus-visible{outline:2px solid #a99bff;border-radius:6px}
