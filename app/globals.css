@@ -273,3 +273,8 @@ button { cursor: pointer; }
     border-radius: 0;
   }
 }
+
+/* Desplegable accesible para los tickets de soporte */
+.account-ticket .dam-ticket-chevron {flex-shrink:0; transition:transform .2s ease; color:#b9a9ff; margin-left:10px;}
+.account-ticket .dam-ticket-chevron.expanded {transform:rotate(180deg);}
+.account-ticket[aria-expanded="true"] {border-color:#a89aff;}
