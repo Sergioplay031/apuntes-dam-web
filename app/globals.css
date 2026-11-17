@@ -256,3 +256,20 @@ button { cursor: pointer; }
 .dam-ticket-detail{display:flex;flex-direction:column;gap:16px;border:1px solid #555184;border-radius:15px;padding:20px;background:#20233a}
 .dam-ticket-full-description{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px!important;color:#f0edff!important}
 @media(max-width:650px){.account-modal.account-modal-wide{width:100%;max-height:96vh}.dam-ticket-list .account-ticket{padding:12px;align-items:flex-start}.dam-ticket-status{font-size:11px}}
+
+/* Mi espacio: mismo tamaño en Perfil, Roles, Mensajes y Soporte. */
+.account-overlay { padding: 2.5vh 2vw; }
+.account-modal.account-modal-wide {
+  width: min(1540px, 96vw);
+  height: 94dvh;
+  max-height: 94dvh;
+}
+.account-modal.account-modal-wide .account-layout { flex: 1; min-height: 0; }
+.account-modal.account-modal-wide .account-body { flex: 1; min-height: 0; overflow-y: auto; }
+@media (max-width: 650px) {
+  .account-overlay { padding: 0; }
+  .account-modal.account-modal-wide {
+    width: 100vw; height: 100dvh; max-height: 100dvh;
+    border-radius: 0;
+  }
+}
