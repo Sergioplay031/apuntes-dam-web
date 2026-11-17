@@ -239,3 +239,20 @@ button { cursor: pointer; }
 @media(max-width:650px){.dam-chat-layout{grid-template-columns:minmax(110px,38%) minmax(0,1fr)}.dam-chat-sidebar{padding:6px}.dam-chat-contact{gap:5px;padding:7px 4px}.dam-chat-avatar{width:26px;height:26px}.dam-chat-messages{padding:9px}.dam-ticket-status{font-size:10px;padding:5px 7px}}
 
 .dam-emoji-wrap{position:relative;display:flex;align-items:center}.dam-emoji-wrap>button{border:0;background:transparent;color:#b8aaff;cursor:pointer;padding:9px}.dam-emoji-picker{position:absolute;bottom:44px;left:0;z-index:30;width:245px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:10px;background:#24263c;border:1px solid #6558a0;border-radius:12px;box-shadow:0 10px 25px #0008}.dam-emoji-picker button{border:0;background:#34364d;border-radius:7px;padding:7px;font-size:20px;cursor:pointer}.dam-delete-account{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid #c64a65;border-radius:8px;background:#63243b44;color:#ffc3ce;cursor:pointer}.dam-delete-account:disabled{opacity:.5;cursor:not-allowed}
+
+/* DamAcademy: ventanas de roles y soporte amplias */
+.account-modal.account-modal-wide{width:min(1380px,96vw);max-height:92vh}
+.account-modal-wide .account-body{min-width:0}
+.account-modal-wide .account-table{width:100%;overflow-x:auto}
+.account-modal-wide .account-table table{min-width:850px}
+.dam-ticket-create{display:flex;flex-direction:column;gap:14px;padding:18px;border:1px solid #3f4368;border-radius:14px;background:#20243b}
+.dam-ticket-list{display:grid;gap:12px}
+.dam-ticket-list .account-ticket{width:100%;display:flex!important;flex-direction:row!important;justify-content:space-between;align-items:center;gap:16px;padding:17px 20px}
+.dam-ticket-info{display:flex;flex-direction:column;gap:7px;min-width:0;flex:1}
+.dam-ticket-info strong{font-size:15px}
+.dam-ticket-description{font-size:13px;color:#c0c5de;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.dam-ticket-status{flex-shrink:0}
+.dam-ticket-selected{border-color:#9b8bff!important;background:#303152!important}
+.dam-ticket-detail{display:flex;flex-direction:column;gap:16px;border:1px solid #555184;border-radius:15px;padding:20px;background:#20233a}
+.dam-ticket-full-description{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px!important;color:#f0edff!important}
+@media(max-width:650px){.account-modal.account-modal-wide{width:100%;max-height:96vh}.dam-ticket-list .account-ticket{padding:12px;align-items:flex-start}.dam-ticket-status{font-size:11px}}
