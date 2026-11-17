@@ -10,6 +10,7 @@ import { onAuthStateChanged, type User } from "firebase/auth"
 import { doc, onSnapshot, setDoc } from "firebase/firestore"
 import { auth, db } from "@/lib/firebase"
 import { AuthPanel } from "@/components/auth-panel"
+import { VerifyEmailGate } from "@/components/verify-email-gate"
 import { AccountCenter } from "@/components/account-center"
 import { useRouter } from "next/navigation"
 import { lessonContent } from "@/lib/lesson-content"
@@ -77,6 +78,7 @@ export function DamAcademy() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const [authChecked, setAuthChecked] = useState(false)
+  const [verificationRevision, setVerificationRevision] = useState(0)
   const [progressLoaded, setProgressLoaded] = useState(false)
   const remoteProgress = useRef(false)
   const [completed, setCompleted] = useState<string[]>([])
@@ -176,6 +178,8 @@ export function DamAcademy() {
 
   const currentLesson = lessonContent[lesson]
   const lessonCode = currentLesson.code.join("\n")
+
+  if (authChecked && user && !user.emailVerified) return <VerifyEmailGate user={user} onVerified={() => setVerificationRevision(v => v + 1)} />
 
   return <div className={`academy ${dark ? "theme-dark" : "theme-light"}`}>
     <aside className={`sidebar ${collapsed ? "sidebar-collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
